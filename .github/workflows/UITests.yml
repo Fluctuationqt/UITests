@@ -59,3 +59,10 @@ jobs:
       # Run integration tests on XSK
       - name: Run Integration Tests
         run: mvn clean test -U -Pselenium-tests
+      
+      # Upload screenshots to an artifact
+      - name: Save screenshots
+      - uses: actions/upload-artifact@v2
+        with:
+          name: integration-test-screenshots
+          path: /home/runner/work/UITests/UITests/*.jpg
