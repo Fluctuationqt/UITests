@@ -21,11 +21,11 @@ jobs:
       
       # Build with unit tests
       - name: Build and Unit Test
-      - run: mvn clean install
+        run: mvn clean install
       
       # Publish the nightly build image to DockerHub
       - name: Publish to DockerHub
-      - run: echo 'Published!'
+        run: echo 'Published!'
       
   integration-tests:
     runs-on: ubuntu-latest
