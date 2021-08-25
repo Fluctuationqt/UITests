@@ -1,49 +1,50 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.commons.io.FileUtils;
 import org.junit.*;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.junit.experimental.categories.Category;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
+@Category(IntegrationTests.class)
 public class SeleniumTest {
 
     private WebDriver driver;
 
     @Before
-    public void setup()
-    {
+    public void setup() {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--headless");
+        options.addArguments("--window-size=1920,1080");
         driver = new ChromeDriver(options);
-        driver.navigate().to("https://the-internet.herokuapp.com/login");
+        driver.navigate().to("http://dirigible:dirigible@127.0.0.1:8080/services/v4/web/ide/");
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(120, TimeUnit.MILLISECONDS);
     }
 
     @Test
-    public void test()
-    {
-        WebElement usernameTxt = driver.findElement(By.id("username"));
-        usernameTxt.sendKeys("tomsmith");
-        WebElement passwordTxt = driver.findElement(By.id("password"));
-        passwordTxt.sendKeys("SuperSecretPassword!");
-        WebElement submitBtn = driver.findElement(By.className("radius"));
-        submitBtn.click();
-        System.out.println("Current URL is:" + driver.getCurrentUrl());
-        Assert.assertTrue(driver.getCurrentUrl().contains("secure"));
+    public void test() throws Exception {
+        this.takeSnapShot(driver, "test.jpg");
     }
 
     @After
-    public void cleanup()
-    {
+    public void cleanup() {
         if (driver != null) {
             driver.quit();
         }
+    }
+
+    public static void takeSnapShot(WebDriver webdriver,String fileWithPath) throws Exception {
+        TakesScreenshot scrShot =((TakesScreenshot)webdriver);
+        File SrcFile=scrShot.getScreenshotAs(OutputType.FILE);
+        File DestFile=new File(fileWithPath);
+        System.out.println("Screenshot dir:" + DestFile.getAbsolutePath());
+        FileUtils.copyFile(SrcFile, DestFile);
     }
 }

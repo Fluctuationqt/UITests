@@ -1,7 +1,7 @@
 # This workflow will build a Java project with Maven
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
-name: Java CI with Maven - Selenium
+name: Nightly Build
 
 on:
   push:
@@ -10,20 +10,52 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
-
+  integration-tests:
     runs-on: ubuntu-latest
 
+    # Download latest DockerHub image of XSK and run it in a service container
+    # that is available to the steps below via 127.0.0.1:8080
+    services:
+      xsk:
+        image: dirigiblelabs/xsk
+        ports:
+          - 8080:8080
+
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up JDK 11
-      uses: actions/setup-java@v2
-      with:
-        java-version: '11'
-        distribution: 'adopt'
-    - name: Install Google Chrome
-      run: |
-       chmod +x ./InstallChrome.sh
-        ./InstallChrome.sh
-    - name: Build with Maven
-      run: mvn clean test --file ./pom.xml
+      # Checkout
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      # Download JDK
+      - name: Download sapmachine JDK 11
+        run: |
+          download_url="https://github.com/SAP/SapMachine/releases/download/sapmachine-11.0.11%2B8/sapmachine-jdk-11.0.11-ea.8_linux-x64_bin.tar.gz"
+          wget -O "${RUNNER_TEMP}/sapmachine-jdk-11.0.11.tar.gz" "${download_url}"
+
+      # Setup JDK
+      - name: Setup sapmachine JDK 11
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'jdkfile'
+          jdkFile: ${{ runner.temp }}/sapmachine-jdk-11.0.11.tar.gz
+          java-version: '11.0.11'
+          architecture: x64
+
+      # Setup Google Chrome
+      - name: Install Google Chrome
+        run: |
+          chmod +x ./InstallChrome.sh
+          ./InstallChrome.sh
+
+      # Wait for XSK Service Container to Startup
+      - name: Wait XSK Startup
+        uses: nick-invision/retry@v2
+        with:
+          timeout_seconds: 15
+          max_attempts: 10
+          command: curl -m 5 --silent --fail --request GET http://127.0.0.1:8080/services/v4/healthcheck | jq --exit-status -n 'inputs | if has("status") then .status=="Ready" else false end' > /dev/null
+
+      # Run integration tests on XSK
+      - name: Run Integration Tests
+        run: mvn clean test -U -Pselenium-tests
