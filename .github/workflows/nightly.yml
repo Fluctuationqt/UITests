@@ -10,9 +10,29 @@ on:
     branches: [ main ]
 
 jobs:
+  build-with-unit-tests-and-publish:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Checkout
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      
+      # Build with unit tests
+      - name: Build and Unit Test
+      - run: mvn clean install
+      
+      # Publish the nightly build image to DockerHub
+      - name: Publish to DockerHub
+      - run: echo 'Published!'
+      
   integration-tests:
     runs-on: ubuntu-latest
-
+    
+    # Wait for the build and publish job to finish first
+    needs: build-with-unit-tests-and-publish
+    
     # Download latest DockerHub image of XSK and run it in a service container
     # that is available to the steps below via 127.0.0.1:8080
     services:
@@ -66,3 +86,4 @@ jobs:
         with:
           name: integration-test-screenshots
           path: /home/runner/work/UITests/UITests/*.jpg
+          retention-days: 2
