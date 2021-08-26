@@ -21,6 +21,7 @@ public class IntegrationTests {
 
     protected WebDriver chrome;
     protected WebDriver firefox;
+    protected String baseURL = "http://dirigible:dirigible@127.0.0.1:8080/services/v4/web/ide/";
 
     protected void setupChrome(String url) {
         WebDriverManager.chromedriver().setup();
@@ -50,9 +51,8 @@ public class IntegrationTests {
 
     @Before
     public void setupDrivers() {
-        String startURL = "http://dirigible:dirigible@127.0.0.1:8080/services/v4/web/ide/";
-        setupChrome(startURL);
-        setupFirefox(startURL);
+        setupChrome(baseURL);
+        setupFirefox(baseURL);
     }
 
     @After
