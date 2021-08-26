@@ -1,21 +1,13 @@
 
 import org.junit.*;
-import org.junit.experimental.categories.Category;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.IOException;
 
-@Category(IntegrationTests.class)
-public class SeleniumTest extends IntegrationTests {
 
-    @Before
-    public void setup() {
-        String startURL = "http://dirigible:dirigible@127.0.0.1:8080/services/v4/web/ide/";
-        setupChrome(startURL);
-        setupFirefox(startURL);
-    }
+public class SeleniumTest extends IntegrationTests {
 
     @Test
     public void testChrome() throws Exception {
@@ -43,11 +35,6 @@ public class SeleniumTest extends IntegrationTests {
         waitFirefox.until(ExpectedConditions.presenceOfElementLocated(By.id("host-name")));
         firefox.findElement(By.id("host-name")).sendKeys("Doing integration testing!");
         takeScreenshot(firefox, "testFirefox_4.jpg");
-    }
-
-    @After
-    public void cleanup() {
-        cleanupDrivers();
     }
 
 }

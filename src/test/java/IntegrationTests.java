@@ -1,5 +1,8 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.experimental.categories.Category;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -13,13 +16,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+@Category(IntegrationTests.class)
 public class IntegrationTests {
 
     protected WebDriver chrome;
     protected WebDriver firefox;
 
-    protected void setupChrome(String url)
-    {
+    protected void setupChrome(String url) {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.setHeadless(true);
@@ -32,8 +35,7 @@ public class IntegrationTests {
         chrome.manage().timeouts().implicitlyWait(120, TimeUnit.MILLISECONDS);
     }
 
-    protected void setupFirefox(String url)
-    {
+    protected void setupFirefox(String url) {
         WebDriverManager.firefoxdriver().setup();
         FirefoxOptions options = new FirefoxOptions();
         options.setHeadless(true);
@@ -46,8 +48,15 @@ public class IntegrationTests {
         firefox.manage().timeouts().implicitlyWait(120, TimeUnit.MILLISECONDS);
     }
 
-    protected void cleanupDrivers()
-    {
+    @Before
+    public void setupDrivers() {
+        String startURL = "http://dirigible:dirigible@127.0.0.1:8080/services/v4/web/ide/";
+        setupChrome(startURL);
+        setupFirefox(startURL);
+    }
+
+    @After
+    public void cleanupDrivers() {
         if(chrome != null) chrome.quit();
         if(firefox != null) firefox.quit();
     }
