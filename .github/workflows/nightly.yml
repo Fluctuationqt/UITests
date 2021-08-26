@@ -87,3 +87,4 @@ jobs:
           name: integration-test-screenshots
           path: /home/runner/work/UITests/UITests/*.jpg
           retention-days: 2
+        if: always()
