@@ -63,10 +63,10 @@ jobs:
           architecture: x64
 
       # Setup Google Chrome
-      - name: Install Google Chrome
-        run: |
-          chmod +x ./InstallChrome.sh
-          ./InstallChrome.sh
+      - name: Setup Google Chrome
+        uses: browser-actions/setup-chrome@latest
+      - name: Verify Google Chrome
+        run: chrome --version
 
       # Wait for XSK Service Container to Startup
       - name: Wait XSK Startup
