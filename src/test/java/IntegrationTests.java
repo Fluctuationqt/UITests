@@ -1,6 +1,8 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
+import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.experimental.categories.Category;
 import org.openqa.selenium.By;
@@ -19,44 +21,47 @@ import java.util.concurrent.TimeUnit;
 @Category(IntegrationTests.class)
 public class IntegrationTests {
 
-    protected static WebDriver chrome;
-    protected static WebDriver firefox;
-    protected static String baseURL = "http://dirigible:dirigible@127.0.0.1:8080/services/v4/web/ide/";
+    protected WebDriver chrome;
+    protected WebDriver firefox;
+    protected String baseURL = "http://dirigible:dirigible@127.0.0.1:8080/services/v4/web/ide/";
 
-    protected static void setupChrome(String url) {
+    protected void setupChrome(String url) {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.setHeadless(true);
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--window-size=1920,1080");
+        options.addArguments("--incognito");
         chrome = new ChromeDriver(options);
         chrome.navigate().to(url);
         chrome.manage().window().maximize();
         chrome.manage().timeouts().implicitlyWait(120, TimeUnit.MILLISECONDS);
     }
 
-    protected static void setupFirefox(String url) {
+    protected void setupFirefox(String url) {
         WebDriverManager.firefoxdriver().setup();
         FirefoxOptions options = new FirefoxOptions();
         options.setHeadless(true);
+        // TODO: check for the same params in firefox.
         //options.addArguments("--no-sandbox");
         //options.addArguments("--disable-dev-shm-usage");
         //options.addArguments("--window-size=1920,1080");
+        //options.addArguments("--incognito");
         firefox = new FirefoxDriver(options);
         firefox.navigate().to(url);
         firefox.manage().window().maximize();
         firefox.manage().timeouts().implicitlyWait(120, TimeUnit.MILLISECONDS);
     }
 
-    @BeforeClass
-    public static void setupDrivers() {
+    @Before
+    public void setupDrivers() {
         setupChrome(baseURL);
         setupFirefox(baseURL);
     }
 
-    @AfterClass
-    public static void cleanupDrivers() {
+    @After
+    public void cleanupDrivers() {
         if(chrome != null) chrome.quit();
         if(firefox != null) firefox.quit();
     }

@@ -20,8 +20,8 @@ public class SeleniumTestTwo extends IntegrationTests {
         takeScreenshot(chrome, "testChromeTwo_2.jpg");
         waitChrome.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@src='../ide-migration/migration-launch.html']")));
         takeScreenshot(chrome, "testChromeTwo_3.jpg");
-        waitChrome.until(ExpectedConditions.presenceOfElementLocated(By.id("host-name")));
-        chrome.findElement(By.id("host-name")).sendKeys("Doing integration testing!");
+        waitChrome.until(ExpectedConditions.presenceOfElementLocated(By.id("subaccount")));
+        chrome.findElement(By.id("subaccount")).sendKeys("Doing integration testing!");
         takeScreenshot(chrome, "testChromeTwo_4.jpg");
     }
 
@@ -35,8 +35,8 @@ public class SeleniumTestTwo extends IntegrationTests {
         takeScreenshot(firefox, "testFirefoxTwo_2.jpg");
         waitFirefox.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@src='../ide-migration/migration-launch.html']")));
         takeScreenshot(firefox, "testFirefoxTwo_3.jpg");
-        waitFirefox.until(ExpectedConditions.presenceOfElementLocated(By.id("host-name")));
-        firefox.findElement(By.id("host-name")).sendKeys("Doing integration testing!");
+        waitFirefox.until(ExpectedConditions.presenceOfElementLocated(By.id("subaccount")));
+        firefox.findElement(By.id("subaccount")).sendKeys("Doing integration testing!");
         takeScreenshot(firefox, "testFirefoxTwo_4.jpg");
     }
 
