@@ -86,8 +86,11 @@ jobs:
       - name: Setup xvfb
         run: sudo apt-get install xvfb
         
+      - name: Export Display
+        run: export DISPLAY=:44
+        
       - name: Run test
-        run: xvfb-run --listen-tcp --server-num 44 --auth-file /tmp/xvfb.auth -s "-ac -screen 0 1920x1080x24" mvn clean install -U -Pselenium-tests & export DISPLAY=:44 & ffmpeg -f x11grab -video_size 1920x1080 -i :44 -codec:v libx264 -r 12 video.mp4
+        run: xvfb-run --listen-tcp --server-num 44 --auth-file /tmp/xvfb.auth -s "-ac -screen 0 1920x1080x24" mvn clean install -U -Pselenium-tests & ffmpeg -f x11grab -video_size 1920x1080 -i :44 -codec:v libx264 -r 12 video.mp4
       
       # Upload screenshots to a GitHub artifact
       - name: Save screenshots
