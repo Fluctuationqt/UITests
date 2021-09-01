@@ -78,7 +78,7 @@ jobs:
           command: curl -m 5 --silent --fail --request GET http://127.0.0.1:8080/services/v4/healthcheck | jq --exit-status -n 'inputs | if has("status") then .status=="Ready" else false end' > /dev/null
 
       - name: Setup ffmpeg
-      - uses: FedericoCarboni/setup-ffmpeg@v1
+        uses: FedericoCarboni/setup-ffmpeg@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
         id: setup-ffmpeg
