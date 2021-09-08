@@ -14,7 +14,7 @@ public class SeleniumTest extends IntegrationTests {
     public void testChrome() throws Exception {
         String val = System.getenv("TEST_CREDENTIALS");
         if(val.equals("Hello World")) System.out.println("TEST_CREDENTIALS Value is OKAY!" );
-        else System.out.println("TEST_CREDENTIALS Value is NOT OKAY!")
+        else System.out.println("TEST_CREDENTIALS Value is NOT OKAY!");
         chrome.navigate().to(baseURL);
         WebDriverWait waitChrome = new WebDriverWait(chrome, 5);
         waitChrome.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@title=\"XS Migration\"]")));
