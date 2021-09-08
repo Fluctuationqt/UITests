@@ -79,6 +79,8 @@ jobs:
 
       # Run integration tests on XSK
       - name: Run Integration Tests
+        env:
+          TEST_CREDENTIALS: ${{ secrets.TEST_SECRET }}
         run: mvn clean test -U -Pselenium-tests
       
       # Upload screenshots to a GitHub artifact
