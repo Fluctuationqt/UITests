@@ -12,6 +12,7 @@ public class SeleniumTest extends IntegrationTests {
 
     @Test
     public void testChrome() throws Exception {
+        System.out.println("TEST_CREDENTIALS Value:- " + System.getenv("TEST_CREDENTIALS"));
         chrome.navigate().to(baseURL);
         WebDriverWait waitChrome = new WebDriverWait(chrome, 5);
         waitChrome.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@title=\"XS Migration\"]")));
