@@ -96,6 +96,6 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: integration-test-videos
-          path: /home/runner/work/UITests/UITests/*
+          path: /home/runner/work/UITests/UITests/*.mp4
           retention-days: 2
         if: always()
