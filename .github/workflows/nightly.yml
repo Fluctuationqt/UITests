@@ -97,5 +97,6 @@ jobs:
         with:
           name: integration-test-videos
           path: /home/runner/work/UITests/UITests/*.mp4
+                /home/runner/work/UITests/UITests/target/surefire-reports
           retention-days: 2
         if: always()
