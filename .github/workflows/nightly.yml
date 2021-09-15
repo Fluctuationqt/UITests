@@ -92,11 +92,10 @@ jobs:
           retention-days: 2
         if: always()
       # Upload videos to a GitHub artifact
-      - name: Save videos
+      - name: Save Videos
         uses: actions/upload-artifact@v2
         with:
           name: integration-test-videos
           path: /home/runner/work/UITests/UITests/*.mp4
-                /home/runner/work/UITests/UITests/target/surefire-reports
           retention-days: 2
         if: always()
