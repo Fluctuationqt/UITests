@@ -25,19 +25,19 @@ public class SeleniumTestTwo extends IntegrationTests {
         takeScreenshot(chrome, "testChromeTwo_4.jpg");
     }
 
-    @Test
-    public void testFirefoxTwo() throws IOException {
-        firefox.navigate().to(baseURL);
-        WebDriverWait waitFirefox = new WebDriverWait(firefox, 5);
-        waitFirefox.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@title=\"XS Migration\"]")));
-        takeScreenshot(firefox, "testFirefoxTwo_1.jpg");
-        firefox.findElement(By.xpath("//*[@title=\"XS Migration\"]")).click();
-        takeScreenshot(firefox, "testFirefoxTwo_2.jpg");
-        waitFirefox.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@src='../ide-migration/migration-launch.html']")));
-        takeScreenshot(firefox, "testFirefoxTwo_3.jpg");
-        waitFirefox.until(ExpectedConditions.presenceOfElementLocated(By.id("subaccount")));
-        firefox.findElement(By.id("subaccount")).sendKeys("Doing integration testing!");
-        takeScreenshot(firefox, "testFirefoxTwo_4.jpg");
-    }
+//    @Test
+//    public void testFirefoxTwo() throws IOException {
+//        firefox.navigate().to(baseURL);
+//        WebDriverWait waitFirefox = new WebDriverWait(firefox, 5);
+//        waitFirefox.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@title=\"XS Migration\"]")));
+//        takeScreenshot(firefox, "testFirefoxTwo_1.jpg");
+//        firefox.findElement(By.xpath("//*[@title=\"XS Migration\"]")).click();
+//        takeScreenshot(firefox, "testFirefoxTwo_2.jpg");
+//        waitFirefox.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@src='../ide-migration/migration-launch.html']")));
+//        takeScreenshot(firefox, "testFirefoxTwo_3.jpg");
+//        waitFirefox.until(ExpectedConditions.presenceOfElementLocated(By.id("subaccount")));
+//        firefox.findElement(By.id("subaccount")).sendKeys("Doing integration testing!");
+//        takeScreenshot(firefox, "testFirefoxTwo_4.jpg");
+//    }
 
 }

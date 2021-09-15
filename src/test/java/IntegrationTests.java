@@ -26,14 +26,9 @@ public class IntegrationTests {
     protected String baseURL = "http://dirigible:dirigible@127.0.0.1:8080/services/v4/web/ide/";
 
     protected void setupChrome(String url) {
-        WebDriverManager.chromedriver().browserInDocker().enableRecording();
-        ChromeOptions options = new ChromeOptions();
-        options.setHeadless(true);
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--window-size=1920,1080");
-        options.addArguments("--incognito");
-        chrome = new ChromeDriver(options);
+        WebDriverManager wdm = WebDriverManager.chromedriver().browserInDocker().enableRecording();
+
+        chrome = wdm.create();
         chrome.navigate().to(url);
         chrome.manage().window().maximize();
         chrome.manage().timeouts().implicitlyWait(120, TimeUnit.MILLISECONDS);
@@ -57,13 +52,13 @@ public class IntegrationTests {
     @Before
     public void setupDrivers() {
         setupChrome(baseURL);
-        setupFirefox(baseURL);
+        //setupFirefox(baseURL);
     }
 
     @After
     public void cleanupDrivers() {
         if(chrome != null) chrome.quit();
-        if(firefox != null) firefox.quit();
+        //if(firefox != null) firefox.quit();
     }
 
     static void takeScreenshot(WebDriver browser, String fileWithPath) throws IOException {
