@@ -12,20 +12,20 @@ public class SeleniumTest extends IntegrationTests {
 
     @Test
     public void testChrome() throws Exception {
-        String val = System.getenv("TEST_CREDENTIALS");
-        if(val.equals("Hello World")) System.out.println("TEST_CREDENTIALS Value is OKAY!" );
-        else System.out.println("TEST_CREDENTIALS Value is NOT OKAY!");
-        chrome.navigate().to(baseURL);
-        WebDriverWait waitChrome = new WebDriverWait(chrome, 5);
-        waitChrome.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@title=\"XS Migration\"]")));
-        takeScreenshot(chrome, "testChrome_1.jpg");
-        chrome.findElement(By.xpath("//*[@title=\"XS Migration\"]")).click();
-        takeScreenshot(chrome, "testChrome_2.jpg");
-        waitChrome.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@src='../ide-migration/migration-launch.html']")));
-        takeScreenshot(chrome, "testChrome_3.jpg");
-        waitChrome.until(ExpectedConditions.presenceOfElementLocated(By.id("subaccount")));
-        chrome.findElement(By.id("subaccount")).sendKeys("Doing integration testing!");
-        takeScreenshot(chrome, "testChrome_4.jpg");
+        chrome.navigate().to("https://www.mobile.bg/pcgi/mobile.cgi");
+        Thread.sleep(5000);
+        chrome.navigate().to("https://www.google.bg/");
+        Thread.sleep(5000);
+//        WebDriverWait waitChrome = new WebDriverWait(chrome, 5);
+//        waitChrome.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@title=\"XS Migration\"]")));
+//        //takeScreenshot(chrome, "testChrome_1.jpg");
+//        chrome.findElement(By.xpath("//*[@title=\"XS Migration\"]")).click();
+//        //takeScreenshot(chrome, "testChrome_2.jpg");
+//        waitChrome.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@src='../ide-migration/migration-launch.html']")));
+//        //takeScreenshot(chrome, "testChrome_3.jpg");
+//        waitChrome.until(ExpectedConditions.presenceOfElementLocated(By.id("subaccount")));
+//        chrome.findElement(By.id("subaccount")).sendKeys("Doing integration testing!");
+//        //takeScreenshot(chrome, "testChrome_4.jpg");
     }
 
 //    @Test
