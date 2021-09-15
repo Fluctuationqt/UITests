@@ -63,10 +63,10 @@ jobs:
           architecture: x64
 
       # Setup Google Chrome
-      - name: Setup Google Chrome
-        uses: browser-actions/setup-chrome@latest
-      - name: Verify Google Chrome
-        run: chrome --version
+      #- name: Setup Google Chrome
+      #  uses: browser-actions/setup-chrome@latest
+      #- name: Verify Google Chrome
+      #  run: chrome --version
 
       # Wait for XSK Service Container to Startup
       - name: Wait XSK Startup
@@ -89,5 +89,13 @@ jobs:
         with:
           name: integration-test-screenshots
           path: /home/runner/work/UITests/UITests/*.jpg
+          retention-days: 2
+        if: always()
+      # Upload videos to a GitHub artifact
+      - name: Save videos
+        uses: actions/upload-artifact@v2
+        with:
+          name: integration-test-videos
+          path: /home/runner/work/UITests/UITests/*.mp4
           retention-days: 2
         if: always()

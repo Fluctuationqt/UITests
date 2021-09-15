@@ -26,7 +26,7 @@ public class IntegrationTests {
     protected String baseURL = "http://dirigible:dirigible@127.0.0.1:8080/services/v4/web/ide/";
 
     protected void setupChrome(String url) {
-        WebDriverManager.chromedriver().setup();
+        WebDriverManager.chromedriver().browserInDocker().enableRecording();
         ChromeOptions options = new ChromeOptions();
         options.setHeadless(true);
         options.addArguments("--no-sandbox");
