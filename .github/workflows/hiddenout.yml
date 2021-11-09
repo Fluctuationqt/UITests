@@ -15,13 +15,14 @@ jobs:
         run: echo "# Good things have arrived" > /home/runner/work/UITests/UITests/CHANGELOG.txt
       - name: Test Changelog
         run: cat /home/runner/work/UITests/UITests/CHANGELOG.txt
-      - name: Pushes to another repository
-        uses: cpina/github-action-push-to-another-repository@main
+      - name: Pushes test file
+        uses: dmnemec/copy_file_to_another_repo_action@main
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
-          source-directory: '/'
-          destination-github-username: ${{ secrets.REPO_UNAME }}
-          destination-repository-name: ${{ secrets.REPO_NAME }}
-          user-email: ${{ secrets.REPO_MAIL }}
-          target-branch: main
+          source_file: 'CHANGELOG.txt'
+          destination_repo: 'Fluctuationqt/hidden-results'
+          destination_folder: 'test-results'
+          user_email: ${{ secrets.REPO_MAIL }}
+          user_name: ${{ secrets.REPO_UNAME }}
+          commit_message: 'Results from current date' 
