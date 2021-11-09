@@ -1,10 +1,7 @@
 name: hiddenout
 
-# On push/pull for test purposes, make it nightly here!
 on:
   push:
-    branches: [ main ]
-  pull_request:
     branches: [ main ]
 
 # Create changelog and push 
