@@ -15,6 +15,8 @@ jobs:
         run: echo "# Good things have arrived" > /home/runner/work/UITests/UITests/CHANGELOG.txt
       - name: Test Changelog
         run: cat /home/runner/work/UITests/UITests/CHANGELOG.txt
+      - name: Set current date as env variable
+        run: echo "NOW::$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
       - name: Pushes test file
         uses: dmnemec/copy_file_to_another_repo_action@main
         env:
@@ -25,4 +27,4 @@ jobs:
           destination_folder: 'test-results'
           user_email: ${{ secrets.REPO_MAIL }}
           user_name: ${{ secrets.REPO_UNAME }}
-          commit_message: 'Results from current date' 
+          commit_message: ${{ 'Results from ' + NOW }}
