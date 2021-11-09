@@ -11,18 +11,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Generate Changelog
-        run: echo "# Good things have arrived" > /home/runner/work/UITests/UITests/CHANGELOG.txt
-      - name: Test Changelog
-        run: cat /home/runner/work/UITests/UITests/CHANGELOG.txt
       - name: Get current date
         id: date
         run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+      - name: Generate Changelog
+        env:
+          MESSAGE: Results from ${{ steps.date.outputs.date }}
+        run: echo $MESSAGE > /home/runner/work/UITests/UITests/CHANGELOG.txt
+      - name: Test Changelog
+        run: cat /home/runner/work/UITests/UITests/CHANGELOG.txt
       - name: Pushes test file
         uses: dmnemec/copy_file_to_another_repo_action@main
         env:
           API_TOKEN_GITHUB: ${{ secrets.REPO_SECRET }}
-          COMMIT_MESSAGE: Results from ${{ steps.date.outputs.date }}
         with:
           source_file: 'CHANGELOG.txt'
           destination_repo: 'Fluctuationqt/hidden_results'
