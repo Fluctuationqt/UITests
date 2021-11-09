@@ -1,6 +1,11 @@
-name: Main
+name: hiddenout
 
-on: push
+# On push/pull for test purposes, make it nightly here!
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build:
