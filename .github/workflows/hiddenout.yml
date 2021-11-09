@@ -7,6 +7,7 @@ on:
   pull_request:
     branches: [ main ]
 
+# Create changelog and push
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,8 +21,6 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           body_path: ${{ github.workspace }}-CHANGELOG.txt
-          # note you'll typically need to create a personal access token
-          # with permissions to create releases in the other repo
           token: ${{ secrets.REPO_SECRET }}
         env:
           GITHUB_REPOSITORY: ${{ secrets.REPO_LOC }}
