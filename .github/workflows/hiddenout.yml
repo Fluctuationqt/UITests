@@ -29,4 +29,4 @@ jobs:
           destination_folder: 'test-results'
           user_email: ${{ secrets.REPO_MAIL }}
           user_name: ${{ secrets.REPO_UNAME }}
-          commit_message: $COMMIT_MESSAGE
+          commit_message: 'Nightly Results'
