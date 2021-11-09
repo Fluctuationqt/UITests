@@ -11,13 +11,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Get current date
-        id: date
-        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+      - name: Get current time
+        uses: 1466587594/get-current-time@v2
+        id: current-time
+        with:
+         format: YYYYMMDD-HH
+         utcOffset: "+08:00"
       - name: Generate Changelog
         env:
-          MESSAGE: Results from ${{ steps.date.outputs.date }}
-        run: echo $MESSAGE > /home/runner/work/UITests/UITests/CHANGELOG.txt
+          TIME: "${{ steps.current-time.outputs.time }}"
+          R_TIME: "${{ steps.current-time.outputs.readableTime }}"
+          F_TIME: "${{ steps.current-time.outputs.formattedTime }}"
+          YEAR: "${{ steps.current-time.outputs.year }}"
+          DAY: "${{ steps.current-time.outputs.day }}"
+        run: echo $TIME $R_TIME $F_TIME $YEAR $DAY > /home/runner/work/UITests/UITests/CHANGELOG.txt
       - name: Test Changelog
         run: cat /home/runner/work/UITests/UITests/CHANGELOG.txt
       - name: Pushes test file
