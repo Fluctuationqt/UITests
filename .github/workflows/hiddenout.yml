@@ -21,7 +21,7 @@ jobs:
           API_TOKEN_GITHUB: ${{ secrets.REPO_SECRET }}
         with:
           source_file: 'CHANGELOG.txt'
-          destination_repo: 'Fluctuationqt/hidden-results'
+          destination_repo: 'Fluctuationqt/hidden_results'
           destination_folder: 'test-results'
           user_email: ${{ secrets.REPO_MAIL }}
           user_name: ${{ secrets.REPO_UNAME }}
