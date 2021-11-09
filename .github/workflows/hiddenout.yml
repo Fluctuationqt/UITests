@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Generate Changelog
         run: echo "# Good things have arrived" > ${{ github.workspace }}-CHANGELOG.txt
-      - name: Release
+      - name: Release Changelog
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
