@@ -11,36 +11,27 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Get current time
+      - name: Get current Time
         uses: 1466587594/get-current-time@v2
         id: current-time
         with:
          format: YYYYMMDD-HH
-         utcOffset: "+08:00"
+         utcOffset: "+02:00"
       - name: Generate Changelog
         env:
-          TIME: "${{ steps.current-time.outputs.time }}"
           R_TIME: "${{ steps.current-time.outputs.readableTime }}"
-          F_TIME: "${{ steps.current-time.outputs.formattedTime }}"
-          YEAR: "${{ steps.current-time.outputs.year }}"
-          DAY: "${{ steps.current-time.outputs.day }}"
         run: mkdir test_results && echo $TIME $R_TIME $F_TIME $YEAR $DAY > /home/runner/work/UITests/UITests/test_results/CHANGELOG.txt
       - name: Test Changelog
         run: cat /home/runner/work/UITests/UITests/test_results/CHANGELOG.txt
       - name: Pushes test file
         uses: dmnemec/copy_file_to_another_repo_action@main
         env:
-          API_TOKEN_GITHUB: ${{ secrets.REPO_SECRET }}
-          TIME: "${{ steps.current-time.outputs.time }}"
           R_TIME: "${{ steps.current-time.outputs.readableTime }}"
-          F_TIME: "${{ steps.current-time.outputs.formattedTime }}"
-          YEAR: "${{ steps.current-time.outputs.year }}"
-          DAY: "${{ steps.current-time.outputs.day }}"
         with:
           source_file: 'test_results'
           destination_repo: 'Fluctuationqt/hidden_results'
           destination_folder: 'test-results'
           user_email: ${{ secrets.REPO_MAIL }}
           user_name: ${{ secrets.REPO_UNAME }}
-          commit_message: $TIME $R_TIME $F_TIME $YEAR $DAY
+          commit_message: "${{ $R_TIME }}"
       
