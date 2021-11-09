@@ -17,19 +17,17 @@ jobs:
         with:
          format: YYYYMMDD-HH
          utcOffset: "+02:00"
-      - name: Generate Changelog
+      - name: Generate Result Directory
         env:
           R_TIME: "${{ steps.current-time.outputs.readableTime }}"
-        run: mkdir test_results && echo $TIME $R_TIME $F_TIME $YEAR $DAY > /home/runner/work/UITests/UITests/test_results/CHANGELOG.txt
-      - name: Test Changelog
-        run: cat /home/runner/work/UITests/UITests/test_results/CHANGELOG.txt
-      - name: Pushes test file
+        run: mkdir test_results && echo $R_TIME > /home/runner/work/UITests/UITests/test_results/CHANGELOG.txt
+      - name: Commit Results Directory
         uses: dmnemec/copy_file_to_another_repo_action@main
         env:
           API_TOKEN_GITHUB: ${{ secrets.REPO_SECRET }}
         with:
           source_file: 'test_results'
-          destination_repo: "${{ secrets.REPO_UNAME }}/${{ secrets.REPO_NAME }}"
+          destination_repo: 'Fluctuationqt/hidden_results'
           destination_folder: 'nightly'
           user_email: ${{ secrets.REPO_MAIL }}
           user_name: ${{ secrets.REPO_UNAME }}
