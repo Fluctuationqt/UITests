@@ -15,7 +15,7 @@ jobs:
         uses: 1466587594/get-current-time@v2
         id: current-time
         with:
-         format: YYYYMMDD-HH
+         format: YYYY-MM-DD_HH
          utcOffset: "+02:00"
       - name: Generate Result Directory
         env:
@@ -28,7 +28,7 @@ jobs:
         with:
           source_file: 'test_results'
           destination_repo: 'Fluctuationqt/hidden_results'
-          destination_folder: "nightly/results ${{ steps.current-time.outputs.formattedTime }}"
+          destination_folder: "nightly/results_${{ steps.current-time.outputs.formattedTime }}_gmtplus_02"
           user_email: ${{ secrets.REPO_MAIL }}
           user_name: ${{ secrets.REPO_UNAME }}
           commit_message: "Nighty results from: ${{ steps.current-time.outputs.formattedTime }}"
