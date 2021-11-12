@@ -27,7 +27,7 @@ jobs:
           API_TOKEN_GITHUB: ${{ secrets.REPO_SECRET }}
         with:
           source_file: 'test_results'
-          destination_repo: 'Fluctuationqt/hidden_results'
+          destination_repo: "${{ secrets.REPO_NAME }}"
           destination_folder: "nightly/results_${{ steps.current-time.outputs.formattedTime }}_gmtplus_2"
           user_email: ${{ secrets.REPO_MAIL }}
           user_name: ${{ secrets.REPO_UNAME }}
