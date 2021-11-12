@@ -28,8 +28,8 @@ jobs:
         with:
           source_file: 'test_results'
           destination_repo: 'Fluctuationqt/hidden_results'
-          destination_folder: "nightly/results ${{ steps.current-time.outputs.readableTime }}"
+          destination_folder: "nightly/results ${{ steps.current-time.outputs.formattedTime }}"
           user_email: ${{ secrets.REPO_MAIL }}
           user_name: ${{ secrets.REPO_UNAME }}
-          commit_message: "Nighty results from: ${{ steps.current-time.outputs.readableTime }}"
+          commit_message: "Nighty results from: ${{ steps.current-time.outputs.formattedTime }}"
       
