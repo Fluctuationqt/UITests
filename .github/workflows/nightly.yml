@@ -99,12 +99,3 @@ jobs:
           path: /home/runner/work/UITests/UITests/*.mp4
           retention-days: 2
         if: always()
-      - name: Copy Tomcat Logs
-        run: docker cp $(docker ps -aqf "name=dirigible"):/usr/local/tomcat/logs/.  /home/runner/work/UITests/UITests/tomcat_logs
-      - name: Upload Tomcat Logs
-        uses: actions/upload-artifact@v2
-        with:
-          name: integration-test-videos
-          path: /home/runner/work/UITests/UITests/tomcat_logs
-          retention-days: 2
-        if: always()
