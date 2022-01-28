@@ -1,1 +1,1 @@
-function Something(data){doSomething();}
+var query= {hello:String };
