@@ -1,0 +1,2 @@
+echo "Frormatting staged files with prettier:"
+npx prettier --config .prettierrc.json --write $(git diff --cached --name-only --diff-filter d | grep '\.js$' | xargs)

@@ -1,1 +1,1 @@
-var query={hello:String };
+var query = { hello: String, asd: String }
