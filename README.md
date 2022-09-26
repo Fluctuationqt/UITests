@@ -1,6 +1,6 @@
 ---
 title: Connecting Eclipse Dirigible with SendGrid SMTP Relay
-description: In this article we are going to setup and use AWS QLDB with Eclipse Dirigible's QLDB API.
+description: In this article we are going to setup and use AWS QLDB with Eclipse Dirigible's QLDB Repository API.
 author: Ivo Yakov
 author_gh_user: https://github.com/Fluctuationqt/
 author_avatar: https://avatars.githubusercontent.com/u/19828259?v=4
@@ -8,10 +8,16 @@ read_time: 15 min
 publish_date: September 26, 2022
 ---
 
-# What is QLDB (Quantum Ledger Database)
+# How to use Amazon Quantum Ledger Database within Eclipse Dirigible projects
+
 - What is QLDB?
-- Why is it useful for Eclipse Dirigible projects?
+	- Amazon Quantum Ledger Database (QLDB) is a fully managed database running over a ledger that provides a transparent, immutable, and cryptographically verifiable transaction log.
+
+- What is the QLDB Repository API and why is it useful for Eclipse Dirigible projects?
+	- The QLDB Repository API in Eclipse Dirigible adds a clean and low code JavaScript interface for work with AWS QLDB. It simplifies it's use and allows Eclipse Dirigible projects to use QLDB's secure transaction log to store many different kind of critical data. Such as, financial transactions or in supply chain systems to store transactions and details of every batch manufactured, shipped, stored, and sold from facility to store. See more use cases at [AWS QLDB](https://aws.amazon.com/qldb/) and [AWS QLDB FAQs](https://aws.amazon.com/qldb/faqs/).
+
 - What are the limitations when using QLDB?
+	- Although QLDB automatically scales to support the demands of your application and you don't need to worry about provisioning capacity or configuring read and write limits, there are some limits that you might want to read [here](https://docs.aws.amazon.com/qldb/latest/developerguide/limits.html) and [here](https://docs.aws.amazon.com/general/latest/gr/qldb.html).
 
 ## Getting Started Guide
 ### 1. Setup AWS Account with QLDB Enabled
@@ -77,7 +83,7 @@ publish_date: September 26, 2022
   <i>Notice: You can read more on how to setup a ledger in the AWS QLDB documentation [here](https://docs.aws.amazon.com/qldb/latest/developerguide/getting-started-step-1.html)</i>
   
   ### 2. Setup a Custom Eclipse Dirigible stack with AWS QLDB support
-  - To create a Custom Stack - follow the steps here [Custom Stack documentation](https://www.dirigible.io/samples/tutorials/customizations/custom-stack/)
+  - To create a Custom Stack - Follow the steps here [Custom Stack documentation](https://www.dirigible.io/samples/tutorials/customizations/custom-stack/).
   - After that replace the content of the `releng/pom.xml` file (described in the first step of the [Custom Stack documentation](https://www.dirigible.io/samples/tutorials/customizations/custom-stack/)) with:
   ```
   <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
@@ -240,4 +246,5 @@ publish_date: September 26, 2022
 - In the navigation pane choose `PartiQL editor`.
 - In the editor's `Choose a ledger` dropdown select `myTestLedger`.
 - You can now write and execute queries to your database manually. 
-<i> Notice: This can be useful if you want to create, delete or restore deleted tables. </i>
+
+<i> Notice: This can be useful if you want to create, delete or restore deleted tables. Read more [here](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-gettingstarted.html). </i>
