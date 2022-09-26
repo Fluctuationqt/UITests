@@ -57,7 +57,7 @@ publish_date: September 26, 2022
       Access key ID: AKIAIOSFODNN7EXAMPLE
       Secret access key: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY 
       ```
-      </i> Notice: You can read more on how to Get an IAM access key in the AWS documentation [here](https://docs.aws.amazon.com/qldb/latest/developerguide/accessing.html#setting-up-iam-user-access-keys)</i>
+      </i> Notice: You can read more on how to Get an IAM access key in the AWS documentation [here](https://docs.aws.amazon.com/qldb/latest/developerguide/accessing.html#setting-up-iam-user-access-keys).</i>
 
 - Setup the credentials and region on the machine you are running Eclipse Dirigible.
   -  Create a file `~/.aws/credentials`, where the tilde character (~) represents your home directory:
