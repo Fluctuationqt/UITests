@@ -11,6 +11,7 @@ publish_date: September 26, 2022
 # What is QLDB (Quantum Ledger Database)
 - What is QLDB?
 - Why is it useful for Eclipse Dirigible projects?
+- What are the limitations when using QLDB?
 
 ## Getting Started Guide
 ### 1. Setup AWS Account with QLDB Enabled
@@ -75,8 +76,97 @@ publish_date: September 26, 2022
   
   <i>Notice: You can read more on how to setup a ledger in the AWS QLDB documentation [here](https://docs.aws.amazon.com/qldb/latest/developerguide/getting-started-step-1.html)</i>
   
-  ### 2. Setup an Eclipse Dirigible instance with AWS QLDB support
-  
+  ### 2. Setup a Custom Eclipse Dirigible stack with AWS QLDB support
+  - To create a Custom Stack - follow the steps here [Custom Stack documentation](https://www.dirigible.io/samples/tutorials/customizations/custom-stack/)
+  - After that replace the content of the `releng/pom.xml` file (described in the first step of the [Custom Stack documentation](https://www.dirigible.io/samples/tutorials/customizations/custom-stack/)) with:
+  ```
+  <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>io.dirigible.custom.stack</groupId>
+        <artifactId>custom-stack-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <name>Custom Stack - Releng - Spring Boot</name>
+    <artifactId>custom-stack-spring-boot</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring.boot.version}</version>
+                <configuration>
+                    <mainClass>io.dirigible.custom.platform.CustomPlatformApplication</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
+
+    <dependencies>
+
+        <!-- Dirigible -->
+        <dependency>
+            <groupId>org.eclipse.dirigible</groupId>
+            <artifactId>dirigible-server-spring</artifactId>
+            <version>${dirigible.version}</version>
+        </dependency>
+
+        <!-- Dirigible ЕXT -->
+		<dependency>
+			<groupId>org.eclipse.dirigible</groupId>
+			<artifactId>dirigible-ext</artifactId>
+			<version>7.0.0-SNAPSHOT</version>
+		</dependency>
+
+        <!-- Platform -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>${logback.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+            <version>${spring.boot.version}</version>
+        </dependency>
+
+    </dependencies>
+
+  </project>
+  ```
 
   ### 3. Create an Eclipse Dirigible Project with AWS QLDB
   - Create a new Project
