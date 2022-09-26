@@ -80,7 +80,7 @@ publish_date: September 26, 2022
   - Choose `Create ledger`.
   - In the list of Ledgers, locate `myTestLedger` and wait for the ledger's status to become Active.
   
-  <i>Notice: You can read more on how to setup a ledger in the AWS QLDB documentation [here](https://docs.aws.amazon.com/qldb/latest/developerguide/getting-started-step-1.html)</i>
+  <i>Notice: You can read more on how to setup a ledger in the AWS QLDB documentation [here](https://docs.aws.amazon.com/qldb/latest/developerguide/getting-started-step-1.html). </i>
   
   ### 2. Setup a Custom Eclipse Dirigible stack with AWS QLDB support
   - To create a Custom Stack - Follow the steps here [Custom Stack documentation](https://www.dirigible.io/samples/tutorials/customizations/custom-stack/).
